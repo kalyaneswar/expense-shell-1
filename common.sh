@@ -1,5 +1,14 @@
 #!/bin/bash
 
+set -e
+
+# to checked failure command and line
+failure(){
+    echo "Failed at line number is :$1 and error command is: $2"
+}
+
+trap 'failure ${LINENO} "$BASH_COMMAND"' ERR
+
 USERID=$(id -u)
 TIMESTAMP=$(date +%F-%H-%M-%S)
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
